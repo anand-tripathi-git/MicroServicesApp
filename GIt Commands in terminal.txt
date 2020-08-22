@@ -1,0 +1,105 @@
+docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+docker-compose -f docker-compose.yml -f docker-compose.override.yml up --build
+
+Catalog-
+
+To see the running images -
+
+docker ps
+
+to see the images-
+docker images
+
+Download Mongo images-
+docker pull mongo
+
+Run Mongo in docker container-
+docker run -d -p 27017:27017 --name aspnetrun-mongo mongo
+
+Go inside mongo db bash to check-
+docker exec -it aspnetrun-mongo /bin/bash
+
+mongo
+show dbs
+
+ use CatalogDb
+db.createCollection('Products')
+db.Products.insertMany(
+[
+{
+"Name": "Asus Laptop",
+"Category": "Computers",
+"Summary": "Summary",
+"Description": "Description",
+"ImageFile": "Image File",
+"Price": 54.23
+},
+{
+"Name": "Dell Laptop",
+"Category": "Computers1",
+"Summary": "Summary1",
+"Description": "Description1",
+"ImageFile": "Image File",
+"Price": 54.23
+}
+])
+
+db.Products.find({}).pretty()
+db.Products.remove({})
+db.Products.find({}).pretty()
+
+show databases
+show collections
+https://docs.mongodb.com/manual/tutorial/getting-started/
+
+Basket-------------------------------------------------------------------------------
+
+Download redis (Remote dictionary server) image with docker-
+
+docker pull redis
+
+Run redis-----
+docker run -d -p 6379:6379 --name aspnetrun-redis redis
+
+Check logs----
+docker logs -f aspnetrun-redis
+ctrl c to exit the logs
+
+redis CLI commands in Redis container-----
+docker exec -it aspnetrun-redis /bin/bash
+redis-cli
+ping
+
+Getting and setting key and value-------
+set key value
+get key
+set name anand
+get name
+
+Running application after finishing docker compose-
+docker ps
+docker stop "first two letters of container ids from above command"
+like - 
+docker stop d9
+
+Rabbit MQ Setup -------------------------------------------------------------
+
+install Rabbit MQ Management Plugin along with Rabbitmq itself----
+docker run -d --hostname my-rabbit --name some-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+
+run docker compose-
+remove all containers-----
+docker rm "two letters of containers"
+docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+
+
+Sql Server Setup--------------------------------------------------------------
+Download and run the sql server-(if it'nt visible in docker ps, run again)
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=SwN$12345678" -p 1433:1433 -d mcr.microsoft.com/mssql/server
+
+add-migration Initial
+
+
+
+
+
